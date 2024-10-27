@@ -1,0 +1,54 @@
+# <h1>TODOS</h1>
+
+  
+# <div >
+#   <%= form_with(model: @task, local: true) do |form| %>
+#     <%= form.label :name %>
+#     <%= form.text_field :name %>
+#     <%= form.submit 'Create Todo' %>
+#   <% end %>
+# </div>
+
+# <div>
+#   <!-- Tabs for Incomplete and Complete tasks -->
+#   <ul class="nav nav-tabs">
+#     <li class="nav-item">
+#       <a class="nav-link active" data-toggle="tab" href="#incomplete">Incomplete</a>
+#     </li>
+#     <li class="nav-item">
+#       <a class="nav-link" data-toggle="tab" href="#complete">Complete</a>
+#     </li>
+#   </ul>
+
+#   <!-- Tab Content -->
+#   <div class="tab-content">
+#     <!-- Incomplete Tasks -->
+#     <div id="incomplete" class="tab-pane fade show active">
+#       <h2>Incomplete Tasks</h2>
+#       <ul>
+#         <% @incomplete_tasks.each do |task| %>
+#           <li>
+#             <%= task.name %>
+#             <%= link_to 'Mark as complete', complete_task_path(task), method: :get, class: 'btn btn-primary' %>
+#             <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+#           </li>
+#         <% end %>
+#       </ul>
+#     </div>
+
+#     <!-- Completed Tasks -->
+#     <div id="complete" class="tab-pane fade">
+#       <h2>Completed Tasks</h2>
+#       <ul>
+#         <% @completed_tasks.each do |task| %>
+#           <li>
+#             <%= task.name %>
+#            <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
+
+#           </li>
+#         <% end %>
+#       </ul>
+#     </div>
+#   </div>
+# </div>

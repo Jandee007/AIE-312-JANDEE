@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Todo" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <h1>TODOS</h1>
+
+
+      <!-- Tab Content -->
+
+      <div class="tab-content">
+      <div>
+        <!-- Tabs for Incomplete and Complete tasks -->
+        <ul class="nav nav-tabs">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#incomplete">Incomplete</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#complete">Complete</a>
+          </li>
+        </ul>
+      <div class="inputbox">
+        <%= form_with(model: @task, local: true) do |form| %>
+          <%= form.label :name %>
+          <li></li>
+          <%= form.text_field :name %>
+          <%= form.submit 'Create Todo', class: 'inputbox-p'%>
+        <% end %>
+      </div>
+        <!-- Incomplete Tasks -->
+        <div id="incomplete" class="tab-pane fade show active">
+          <h2>Incomplete Tasks</h2>
+          <ul>
+            <% @incomplete_tasks.each do |task| %>
+              <li>
+                <%= task.name %>
+                <%= link_to '✅', complete_task_path(task), method: :get, class: 'btn btn-primary' %>
+                <%= link_to '🗑️', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <!-- Completed Tasks -->
+        <div id="complete" class="tab-pane fade">
+          <h2>Completed Tasks</h2>
+          <ul>
+            <% @completed_tasks.each do |task| %>
+              <li>
+                <%= task.name %>
+                <%= link_to '🗑️', task_path(task), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-primary'%>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
